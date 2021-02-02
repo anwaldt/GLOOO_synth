@@ -1,0 +1,31 @@
+PROJECT_NAME           = "GLOOO_synth"                     
+
+PROJECT_BRIEF          = "GLOOO_synth Documentation!"
+
+
+USE_MDFILE_AS_MAINPAGE = README.md
+
+OUTPUT_DIRECTORY       = "./"                                                                                      
+INPUT                  = "../src"                                          
+INPUT		       += README.md
+
+FILE_PATTERNS          = *.cpp *.h *.md
+
+RECURSIVE              = YES                                                                                                                                 
+FILTER_SOURCE_FILES    = NO
+
+# deactivate when done with major changes
+EXTRACT_PRIVATE	       = YES
+
+EXTRACT_ALL            = YES
+HAVE_DOT               = YES
+UML_LOOK               = YES
+COLLABORATION_GRAPH    = YES
+HIDE_UNDOC_RELATIONS   = NO
+HTML_TIMESTAMP         = YES
+GENERATE_LEGEND        = YES
+UML_LOOK               = NO
+SHOW_USED_FILES        = YES
+FULL_PATH_NAMES        = NO
+
+ALIASES += "usetikzlib=\latexonly \input ./usetikzlib.tex \endlatexonly"
