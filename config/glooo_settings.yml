@@ -1,0 +1,73 @@
+# GLOOO Settings
+#
+# This file is passed to the GLOOO_synth for startup:
+#
+# - comment or uncomment lines to change
+#   the general synth configuration
+# - set sepcific values to change behaviour
+#
+# Henrik von Coler
+# 2019-11-21
+
+####################################################################################################################
+# Paths and files
+####################################################################################################################
+
+# The standard assignment:
+# assignment_file: "sample-assignment_STANDARD.txt"
+
+# A minimized version for debugging:
+assignment_file: "sample-assignment_SMALL.txt"
+
+bark_file: "bark-bank_48000.yml"
+
+####################################################################################################################
+# Basic synth settings.
+####################################################################################################################
+
+# maximum number of simultaneously running voices
+num_voices: 4
+
+# the maximum number of partials in the data set:
+num_partials: 80
+
+# determine which data sets to read
+synth_mode: "dual"
+#synth_mode: "deterministic"
+#synth_mode: "stochastic"
+
+# ATTACK and RELEASE modes
+#attack_mode: "original"
+attack_mode: "linear"
+release_mode: "fixed"
+# release_mode: "statistic"
+
+#sine_mode: "lookup"
+sine_mode: "cmath"
+
+####################################################################################################################
+# Communication Settings
+####################################################################################################################
+
+osc_port_in: 5100           # from Bong
+osc_port_out: 1234          # to SSR
+receive_osc: 1
+receive_midi: 1
+
+####################################################################################################################
+# DEBUG outupts and alike
+####################################################################################################################
+
+OUTPUTS:
+     # set '1' to print all amplitudes to txt-files
+     partial_trajectories: 0
+
+     # chose path to create txt files
+     partial_output_path: "../debug_outputs/"
+
+     # display incoming performance controls in terminal
+     control_input: 0
+
+     # display information regarding the stochastic synthesis
+     # on the terminal
+     statistical_data: 0
