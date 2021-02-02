@@ -1,0 +1,3 @@
+note 	 pp 		 mp 		 mf 		 ff 
+55	SampLib_01	SampLib_02	SampLib_03	SampLib_04
+56	SampLib_05	SampLib_06	SampLib_07	SampLib_08

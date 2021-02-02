@@ -1,0 +1,5 @@
+*.AMPL filter=lfs diff=lfs merge=lfs -text
+*.BBE filter=lfs diff=lfs merge=lfs -text
+*.F0 filter=lfs diff=lfs merge=lfs -text
+*.FREQ filter=lfs diff=lfs merge=lfs -text
+*.PHA filter=lfs diff=lfs merge=lfs -text
