@@ -137,10 +137,49 @@ data from interface to synthesis and spatialization:
 
     $ puredata -noaudio -callback -nrt PD/GLOOO_MAIN.pd
 
------
 
 
-## Contributions
+### MIDI
+
+**Get the sources from the repository:**
+
+	$ git clone https://github.com/anwaldt/GLOOO_synth.git
+
+**In the root directory of the repository run:**
+
+```shell
+$ cd build
+$ cmake .
+$ make
+```
+After compilation, the included model and settings file can be used:
+
+    $ cd build
+    $ ./GLOOO_synth -m ../MODELS/Violin/ -c ../config/glooo_settings.yml
+
+
+For using the GLOOO_synth with a MIDI device as control input, the correct MIDI port has to be chosen. 
+The file **_glooo_settings.yml_** has to be changed as follows:
+```
+####################################################################################################################
+# Communication Settings
+####################################################################################################################
+
+osc_port_in: 5100           # from Bong
+osc_port_out: 1234          # to SSR
+receive_osc: 0 #<- Disable OSC control 
+midi_port_in: 3 #<- Has to be replaced with the correct port number! 
+receive_midi: 1 #<- Enable midi 
+```
+To find the correct port number, run the GLOOO_synth like described above with **_receive_midi: 1_** and the available ports will be listed. 
+
+Supported Control Change messages:
+- `CC 48`   (Master volume)
+- `CC 49`   (Tonal volume)
+- `CC 50`   (Noise volume)
+
+
+### Contributions
 
 * Henrik von Coler [2016-2020]
 * Benjamin Wiemann [2016-2017]
