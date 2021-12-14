@@ -71,6 +71,7 @@ private:
 
     int oscInPort;
 
+    int midiInPort;
 
     bool printPartials;
     bool printControl;
@@ -80,7 +81,7 @@ private:
 
 public:
 
-    GloooConfig(const char *modelPath, const char *configFile);
+    GloooConfig(const char *modelPath, const char *configFile);  
 
     /// @brief Getter for the number of partials
     int get_max_partials();
@@ -112,8 +113,13 @@ public:
 
     int receive_osc();
 
-    int receive_midi();
+    void set_osc(int);
 
+    int midi_in_port();
+
+    int receive_midi();
+    
+    void set_midi(int);
 
     bool print_partials();
     bool print_control();

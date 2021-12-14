@@ -37,10 +37,20 @@ VoiceManager::VoiceManager(jack_default_audio_sample_t **out,
         voices.push_back(new SingleVoice(voiceCNT, sampleRate,this->blocksize,d_data, s_data, b_coeff, gloooconf, &gp, globMat));
     }
 
-
     // create new OscManager Object
     osc_manager     = new OscManager(gloooconf->osc_in_port(),&gp, gloooconf);
+    if (gloooconf->receive_midi() == 1)
+        midi_manager    = new MidiManager(gloooconf->midi_in_port(), &gp, gloooconf);
 
+    // Disable OSC control if midi manager is active
+    //if (midi_manager != nullptr)
+    //{
+    //    gloooconf->set_osc(0);
+    //} else
+    //{
+    //    gloooconf->set_midi(0);
+    //}
+    
     // set some parameters
     gp.printControl = gloooconf->print_control();
 
@@ -53,13 +63,7 @@ VoiceManager::VoiceManager(jack_default_audio_sample_t **out,
     // defalut articulation stlye
     art_style = glissando;
 
-
-
-
 }
-
-
-
 
 VoiceManager::~VoiceManager()
 {
@@ -81,19 +85,19 @@ bool VoiceManager::is_shutdown()
 
 void VoiceManager::update_voices()
 {
-
-
     // OSC //////////////////////////////////////////////////////////////////////////////////////
     // use only if OSC receiver is activated
 
-
-
-    if(gloooconf->receive_osc() == 1)
+    if (gloooconf->receive_osc() == 1 || gloooconf->receive_midi() == 1)
     {
-
-        // got note events ?
-        uint N_events = osc_manager->number_of_note_events();
-
+        // got note events?
+        unsigned int N_events;
+        if (gloooconf->receive_osc() == 1)
+            N_events = osc_manager->number_of_note_events();
+            
+        if (gloooconf->receive_midi() == 1)
+            N_events = midi_manager->number_of_note_events();
+        
         // update articulation style
         art_style = gp.articulation_mode;
 
@@ -123,10 +127,11 @@ void VoiceManager::update_voices()
                         break;
                 }
 
-
-
-
-                osc_manager->flush_note_messages();
+                if (gloooconf->receive_osc() == 1)
+                    osc_manager->flush_note_messages();
+    
+                if (gloooconf->receive_midi() == 1)                
+                    midi_manager->flush_note_messages();
 
                 note_event_t event;
 
@@ -194,7 +199,11 @@ void VoiceManager::update_voices()
         {
             // flush all note messages if
             // synth is not playing
-            osc_manager->flush_note_messages();
+            if (gloooconf->receive_osc() == 1)
+                osc_manager->flush_note_messages();
+
+            if (gloooconf->receive_midi() == 1)                
+                midi_manager->flush_note_messages();
         }
 
         // grab the most recent intensity value
@@ -288,7 +297,6 @@ void VoiceManager::update_voices()
         }
 
     }//  end of: if(gloooconf->receive_osc() == 1)
-
 }
 
 

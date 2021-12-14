@@ -42,6 +42,7 @@
 #include "GlobalMath.h"
 #include "GloooConfig.h"
 #include "OscManager.h"
+#include "MidiManager.h"
 #include "TextOutputManager.h"
 #include "BarkCoefficients.h"
 
@@ -115,6 +116,8 @@ private:
     GlobalMath *globMat;
 
     OscManager  *osc_manager;
+
+    MidiManager *midi_manager = nullptr;
 
     GloooConfig *gloooconf;
 

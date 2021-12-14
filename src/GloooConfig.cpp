@@ -40,7 +40,7 @@
         if (printPartials == true)
         {
             cout << "Writing partial data to: "
-                    << partial_output_path <<  "" << endl << endl;
+                    << partial_output_path << "" << endl << endl;
         }
 
 
@@ -57,9 +57,10 @@
              << attack_mode <<  endl << endl;
 
 
+        midiInPort   = config["midi_port_in"].as<int>();
+        rec_midi     = (bool) config["receive_midi"].as<int>();
         oscInPort    = config["osc_port_in"].as<int>();
         rec_osc      = (bool) config["receive_osc"].as<int>();
-        rec_midi     = (bool) config["receive_midi"].as<int>();
 
 
     }
@@ -137,9 +138,24 @@
         return rec_osc;
     }
 
+    void GloooConfig::set_osc(int osc)
+    {
+        rec_osc = osc;
+    }
+
+    int GloooConfig::midi_in_port()
+    {
+        return midiInPort;
+    }
+
     int GloooConfig::receive_midi()
     {
         return rec_midi;
+    }
+
+    void GloooConfig::set_midi(int midi)
+    {
+        rec_midi = midi;
     }
 
     bool GloooConfig::print_partials()
