@@ -51,9 +51,9 @@ sine_mode: "cmath"
 
 osc_port_in: 5100           # from Bong
 osc_port_out: 1234          # to SSR
-receive_osc: 1
-midi_port_in: 1
-receive_midi: 0
+receive_osc: 0
+midi_port_in: 3
+receive_midi: 1
 
 ####################################################################################################################
 # DEBUG outupts and alike

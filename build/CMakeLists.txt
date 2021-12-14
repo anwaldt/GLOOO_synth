@@ -31,6 +31,7 @@ Set(sources
         ../src/DeterministicData.cpp
         ../src/StochasticData.cpp 
         ../src/OscManager.cpp 
+        ../src/MidiManager.cpp
         ../src/TextOutputManager.cpp
         ../src/ResidualSynth.cpp
         ../src/BarkCoefficients.cpp
@@ -73,6 +74,6 @@ Set(sources
 add_executable(GLOOO_synth ${sources})
 
 
-target_link_libraries(GLOOO_synth PRIVATE jack yaml-cpp lo)
+target_link_libraries(GLOOO_synth PRIVATE jack yaml-cpp lo rtmidi)
 
 install(TARGETS GLOOO_synth DESTINATION /usr/local/bin)
