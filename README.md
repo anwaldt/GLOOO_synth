@@ -15,7 +15,7 @@ a SuperCollider based framework for different spatialization techniques, is reco
 
 **Control**
 
-The synthesizer offers OSC based control over all settings and performance parameters. Any tool can thus be used to control the synthesizer. The [BinBong]((https://gitlab.tubit.tu-berlin.de/henrikvoncoler/binbong_2)) is a haptic control interface, designed
+The synthesizer offers basic MIDI control and OSC based control over all settings and performance parameters. Any tool can thus be used to control the synthesizer. The [BinBong]((https://gitlab.tubit.tu-berlin.de/henrikvoncoler/binbong_2)) is a haptic control interface, designed
 for the use with GLOOO_synth.
 
 **Analysis & Modeling**
@@ -38,20 +38,18 @@ The following instructions work for a fresh Ubuntu Studio 20.04 install but shou
 
 **Get the sources from the repository:**
 
-	$ git clone https://gitlab.tubit.tu-berlin.de/henrikvoncoler/GLOOO_synth.git
+	$ git clone https://github.com/anwaldt/GLOOO_synth.git
 
 
 **Install dependencies:**
 
 ```shell
-$ sudo apt-get install libjack0
 $ sudo apt-get install libjack-jackd2-dev
 $ sudo apt-get install libyaml-cpp-dev
 $ sudo apt-get install libboost-dev
 $ sudo apt-get install liblo-dev
+$ sudo apt-get install librtmidi-dev
 ```
-
- 
 
 **Make sure cmake is installed:**
 
@@ -62,9 +60,8 @@ $ sudo apt-get install liblo-dev
 **In the root directory of the repository run:**
 
 ```shell
-$ mkdir build
 $ cd build
-$ cmake ../.
+$ cmake .
 $ make
 ```
 
@@ -83,42 +80,15 @@ The binary needs two arguments:
 After compilation, the included model and settings file can be used:
 
     $ cd build
-    $ ./GLOOO_synth -m ../MODELS/Violin/ -c ../setup/glooo_settings.yml
+    $ ./GLOOO_synth -m ../MODELS/Violin/ -c ../config/glooo_settings.yml
 
 The synth takes a considerable time for reading all model data.
-Once loaded, it keeps running, waiting for OSC control input.
+Once loaded, it keeps running, waiting for OSC or MIDI control input based on the settings.
 
 
 ------
 
 ## 2: Periphery
-
-### Spatialization
-
-The GLOOO_synth can be used without any further tools when
-provided with the proper OSC commands.
-The full *GLOOO instrument* relies on additional spatial
-rendering software integrated as another Jack client.
-Initially, [PanoramixApp](https://forum.ircam.fr/projects/detail/panoramix/) was used and is still supported.
-[SC_SPAT](https://gitlab.tubit.tu-berlin.de/henrikvoncoler/sc_spat/) for spatialization of the individual partials.
-
-When using SC_SPAT, the binaural server can be used
-with full 104 sources:
-
-    $ sclang -u 57121 sc_spat_binaural_SERVER.sc 104
-
-
-### Puredata
-
-[PureData](https://puredata.info/) serves as a control interface and
-mapping environment for the GLOOO_synth.
-Use deken to install the additional externals:
-
-- `mrpeach` (network stuff)
-- `hcs` (pi)
-
-
-
 
 ### Qjackctl
 
@@ -126,47 +96,17 @@ Qjackctl can be handy for managing connections:
 
     $ sudo apt-get install qjackctl
 
+### MIDI & OSC
 
-
-### Interface
-
-The [BinBong](https://gitlab.tubit.tu-berlin.de/henrikvoncoler/binbong_2)
-is a haptic musical interface, designed for the use with the GLOOO_synth.
-The **Pure Data** control patch is needed to map sensor
-data from interface to synthesis and spatialization:
-
-    $ puredata -noaudio -callback -nrt PD/GLOOO_MAIN.pd
-
-
-
-### MIDI
-
-**Get the sources from the repository:**
-
-	$ git clone https://github.com/anwaldt/GLOOO_synth.git
-
-**In the root directory of the repository run:**
-
-```shell
-$ cd build
-$ cmake .
-$ make
-```
-After compilation, the included model and settings file can be used:
-
-    $ cd build
-    $ ./GLOOO_synth -m ../MODELS/Violin/ -c ../config/glooo_settings.yml
-
-
-For using the GLOOO_synth with a MIDI device as control input, the correct MIDI port has to be chosen. 
+To control the GLOOO_synth with a MIDI input device, the correct MIDI port has to be chosen. 
 The file **_glooo_settings.yml_** has to be changed as follows:
 ```
 ####################################################################################################################
 # Communication Settings
 ####################################################################################################################
 
-osc_port_in: 5100           # from Bong
-osc_port_out: 1234          # to SSR
+osc_port_in: 5100          
+osc_port_out: 1234        
 receive_osc: 0 #<- Disable OSC control 
 midi_port_in: 3 #<- Has to be replaced with the correct port number! 
 receive_midi: 1 #<- Enable midi 
@@ -177,6 +117,18 @@ Supported Control Change messages:
 - `CC 48`   (Master volume)
 - `CC 49`   (Tonal volume)
 - `CC 50`   (Noise volume)
+
+To control the GLOOO_synth with a OSC messages, the file **_glooo_settings.yml_** has to be changed as follows:
+```
+####################################################################################################################
+# Communication Settings
+####################################################################################################################
+
+osc_port_in: 5100 #<- Has to be replaced with the correct port number!
+osc_port_out: 1234 #<- Has to be replaced with the correct port number! 
+receive_osc: 1 #<- Enable OSC  
+midi_port_in: 3 
+receive_midi: 0 #<- Disable MIDI 
 
 
 ### Contributions
