@@ -15,6 +15,7 @@ SOURCES += \
     src/DeterministicData.cpp \
     src/StochasticData.cpp \
     src/OscManager.cpp \
+    src/MidiManager.cpp \
     src/TextOutputManager.cpp \
     src/ResidualSynth.cpp \
     src/BarkCoefficients.cpp \
@@ -37,15 +38,14 @@ HEADERS += \
     src/SingleVoice.h \
     src/glooo.h \
     src/Trajectory.h \
-    gloooconfig.h \
     src/GloooConfig.h \
     src/LinearSlope.h \
     src/frameinterpolator.h \
     src/DeterministicData.h \
     src/StochasticData.h \
     src/OscManager.h \
+    src/MidiManager.h \
     src/TextOutputManager.h \
-    residualsynth.h \
     src/ResidualSynth.h \
     src/BarkCoefficients.h \
     src/IirFilter.h \
@@ -58,7 +58,7 @@ HEADERS += \
     src/StochasticTester.h \
     src/HyperbolicSlope.h
 
-LIBS += -ljack -lyaml-cpp -llo
+LIBS += -ljack -lyaml-cpp -llo -lrtmidi
 
 DISTFILES += \
     setup/glooo_settings.yml
