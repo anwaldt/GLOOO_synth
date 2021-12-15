@@ -23,6 +23,7 @@
 #ifndef MIDIMANAGER_H
 #define MIDIMANAGER_H
 
+
 #include<rtmidi/RtMidi.h>
 #include<iostream>
 #include<vector> 
@@ -55,7 +56,6 @@ private:
     bool isVerbose = true;
 
     vector<note_event_t> note_events;
-    //note_events.reserve(32); to avoid realloc?
 
 public:
 

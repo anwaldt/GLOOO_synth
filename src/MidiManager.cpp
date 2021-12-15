@@ -6,73 +6,6 @@ MidiManager::MidiManager(int p, glooo_parameters *gp, GloooConfig *gc)
 
     gloooConf   = gc;
 
-    #if 0 // Choose midi device via user input    
-    char choice = 'N';
-
-    cout << "Do you want to use a mide device (Using a midi device will disable the OSC control)?" << "\n" << "[Y] Yes [N] No (Default)" << endl; 
-    choice = cin.get();
-
-    if (choice == 'Y')
-    {
-        try 
-        {
-            midiIn = new RtMidiIn();
-        }
-        catch(RtMidiError &error)
-        {
-            error.printMessage();
-            exit(EXIT_FAILURE);
-        }
-
-        // Check ports
-        unsigned int portCount = midiIn->getPortCount();
-
-        cout << "There are " << portCount << " Midi input sources available." << endl;      
-
-        string portName;
-        for (int i = 0; i < portCount; i++) 
-        {
-            try 
-            {
-                portName = midiIn->getPortName(i);
-            }
-            catch(RtMidiError &error) 
-            {
-                error.printMessage();
-                delete midiIn;
-            }
-            cout << "Input Port #" << i+1 << ": " << portName << endl;
-        }
-
-        string portNumber;
-        while (port < 0 || port >= portCount && portCount != 0)
-        {
-            cout << "Choose port: ";
-            cin >> portNumber;
-            port = stoi(portNumber) - 1;
-        }
-
-        cout << "Midi device " << midiIn->getPortName(port) << " is used" << endl;
-
-        // Open port
-        try 
-        {
-          midiIn->openPort (port);
-        }
-        catch (RtMidiError &error) 
-        {
-          error.printMessage();
-          delete midiIn;
-        }
-
-        // Set callback        
-        midiIn->setCallback(&callback, this);
-
-        midiIn->ignoreTypes(false, false, false);
-    }
-    #endif
-
-    #if 1 // Choose port for midi device in settings
     try 
     {
         midiIn = new RtMidiIn();
@@ -83,6 +16,7 @@ MidiManager::MidiManager(int p, glooo_parameters *gp, GloooConfig *gc)
         exit(EXIT_FAILURE);
     }
 
+    // Display available ports for the user
     unsigned int portCount = midiIn->getPortCount();
     string portName;
     for (int i = 0; i < portCount; i++) 
@@ -110,10 +44,9 @@ MidiManager::MidiManager(int p, glooo_parameters *gp, GloooConfig *gc)
         delete midiIn;
     }
     
-    midiIn->setCallback(&callback, this);
-
     midiIn->ignoreTypes(false, false, false);
-    #endif
+
+    midiIn->setCallback(&callback, this);
 }
 
 MidiManager::~MidiManager()
@@ -127,10 +60,6 @@ void MidiManager::callback(double deltatime, std::vector<unsigned char> *message
     midiMessage.byte0 = (unsigned int) message->at(0);
     unsigned int channel = midiMessage.byte0 & 0xF;
     unsigned int status  = midiMessage.byte0 & 0xF0;
-    cout << status << endl;
-    cout << (double)message->at(1) << endl;
-    cout << (double)message->at(2) << endl;
-
 
     note_event_t note;
     
@@ -141,7 +70,6 @@ void MidiManager::callback(double deltatime, std::vector<unsigned char> *message
         note.velocity   = (int) message->at(2);
         note.type       = glooo::note_off;
         note.time       = deltatime;
-        //static_cast<MidiManager*>(userData)->gloooParam->pitch = (double) message->at(1);
         static_cast<MidiManager*>(userData)->gloooParam->intensity = (double) message->at(2);
         break;
     case 144: // Note On event
@@ -151,8 +79,6 @@ void MidiManager::callback(double deltatime, std::vector<unsigned char> *message
         note.time       = deltatime;
         static_cast<MidiManager*>(userData)->gloooParam->pitch = (double) message->at(1);
         static_cast<MidiManager*>(userData)->gloooParam->intensity = (double) message->at(2);
-        //static_cast<MidiManager*>(userData)->insert_note_event(note);
-        //static_cast<MidiManager*>(userData)->gloooParam->active_note = message->at(1);
         break;
     case 176: // Control Change event 
         if ((int) message->at(1) == 48) // Master volume on CC48
