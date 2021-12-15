@@ -118,7 +118,7 @@ Supported Control Change messages:
 - `CC 49`   (Tonal volume)
 - `CC 50`   (Noise volume)
 
-To control the GLOOO_synth with a OSC messages, the file **_glooo_settings.yml_** has to be changed as follows:
+To control the GLOOO_synth with OSC messages, the file **_glooo_settings.yml_** has to be changed as follows:
 ```
 ####################################################################################################################
 # Communication Settings
@@ -129,7 +129,7 @@ osc_port_out: 1234 #<- Has to be replaced with the correct port number!
 receive_osc: 1 #<- Enable OSC  
 midi_port_in: 3 
 receive_midi: 0 #<- Disable MIDI 
-
+```
 
 ### Contributions
 
