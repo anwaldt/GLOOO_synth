@@ -110,13 +110,13 @@ osc_port_out: 1234
 receive_osc: 0 #<- Disable OSC control 
 midi_port_in: 3 #<- Has to be replaced with the correct port number! 
 receive_midi: 1 #<- Enable midi 
+
+CC_master_volume: 48    #\
+CC_tonal_volume: 49     # | <- Assign the desired CC numbers
+CC_noise_volume: 50     #/
+
 ```
 To find the correct port number, run the GLOOO_synth like described above with **_receive_midi: 1_** and the available ports will be listed. 
-
-Supported Control Change messages:
-- `CC 48`   (Master volume)
-- `CC 49`   (Tonal volume)
-- `CC 50`   (Noise volume)
 
 To control the GLOOO_synth with OSC messages, the file **_glooo_settings.yml_** has to be changed as follows:
 ```

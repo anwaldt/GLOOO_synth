@@ -52,8 +52,12 @@ sine_mode: "cmath"
 osc_port_in: 5100           # from Bong
 osc_port_out: 1234          # to SSR
 receive_osc: 0
-midi_port_in: 3
+midi_port_in: 2
 receive_midi: 1
+
+CC_master_volume: 48
+CC_tonal_volume: 49
+CC_noise_volume: 50
 
 ####################################################################################################################
 # DEBUG outupts and alike
@@ -67,7 +71,7 @@ OUTPUTS:
      partial_output_path: "../debug_outputs/"
 
      # display incoming performance controls in terminal
-     control_input: 0
+     control_input: 1
 
      # display information regarding the stochastic synthesis
      # on the terminal
