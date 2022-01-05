@@ -62,6 +62,9 @@
         oscInPort    = config["osc_port_in"].as<int>();
         rec_osc      = (bool) config["receive_osc"].as<int>();
 
+        masterVol_CC = config["CC_master_volume"].as<int>();
+        tonalVol_CC = config["CC_tonal_volume"].as<int>();
+        noiseVol_CC = config["CC_noise_volume"].as<int>();
 
     }
 

@@ -127,6 +127,15 @@ public:
 
 
     string partOutPath();
+    
+    // Should be private and accessed by getter method
+
+    int masterVol_CC;
+
+    int tonalVol_CC;
+
+    int noiseVol_CC;   
+
 
 };
 
