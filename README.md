@@ -107,13 +107,11 @@ The file **_glooo_settings.yml_** has to be changed as follows:
 
 osc_port_in: 5100          
 osc_port_out: 1234        
-receive_osc: 0 #<- Disable OSC control 
+receive_osc: 0 #<- Disable OSC control! 
 midi_port_in: 3 #<- Has to be replaced with the correct port number! 
-receive_midi: 1 #<- Enable midi 
+receive_midi: 1 #<- Enable midi. 
 
-CC_master_volume: 48    #\
-CC_tonal_volume: 49     # | <- Assign the desired CC numbers
-CC_noise_volume: 50     #/
+midi_file: "../midi/midi_assignment.yml" #<- Path to midi assignment file. The assignments can be adjusted in this file.
 
 ```
 To find the correct port number, run the GLOOO_synth like described above with **_receive_midi: 1_** and the available ports will be listed. 
@@ -124,11 +122,11 @@ To control the GLOOO_synth with OSC messages, the file **_glooo_settings.yml_** 
 # Communication Settings
 ####################################################################################################################
 
-osc_port_in: 5100 #<- Has to be replaced with the correct port number!
-osc_port_out: 1234 #<- Has to be replaced with the correct port number! 
-receive_osc: 1 #<- Enable OSC  
+osc_port_in: 5100 #<- Has to be replaced with the correct port number.
+osc_port_out: 1234 #<- Has to be replaced with the correct port number. 
+receive_osc: 1 #<- Enable OSC.  
 midi_port_in: 3 
-receive_midi: 0 #<- Disable MIDI 
+receive_midi: 0 #<- Disable MIDI! 
 ```
 
 ### Contributions

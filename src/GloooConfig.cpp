@@ -21,6 +21,7 @@
         yamlPath            = model_path+"yaml/";
         assignmentFile      = model_path+config["assignment_file"].as<string>();
         barkFile            = model_path+config["bark_file"].as<string>();
+        midiFile            = config["midi_file"].as<string>();
         partial_output_path = outputs["partial_output_path"].as<string>();
 
         printPartials   = (bool) outputs["partial_trajectories"].as<int>();
@@ -62,9 +63,9 @@
         oscInPort    = config["osc_port_in"].as<int>();
         rec_osc      = (bool) config["receive_osc"].as<int>();
 
-        masterVol_CC = config["CC_master_volume"].as<int>();
-        tonalVol_CC = config["CC_tonal_volume"].as<int>();
-        noiseVol_CC = config["CC_noise_volume"].as<int>();
+        //masterVol_CC = config["CC_master_volume"].as<int>();
+        //tonalVol_CC = config["CC_tonal_volume"].as<int>();
+        //noiseVol_CC = config["CC_noise_volume"].as<int>();
 
     }
 
@@ -115,6 +116,10 @@
         return assignmentFile;
     }
 
+    string GloooConfig::midi_file()
+    {
+        return midiFile;
+    }
 
     string GloooConfig::ATT_mode()
     {

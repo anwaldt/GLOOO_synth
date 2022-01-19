@@ -55,9 +55,7 @@ receive_osc: 0
 midi_port_in: 2
 receive_midi: 1
 
-CC_master_volume: 48
-CC_tonal_volume: 49
-CC_noise_volume: 50
+midi_file: "../midi/midi_assignment.yml"
 
 ####################################################################################################################
 # DEBUG outupts and alike

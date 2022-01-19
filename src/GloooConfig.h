@@ -1,7 +1,6 @@
 /**
-*
-* @file GloooConfig.h
-* @class GloooConfig
+ * @file GloooConfig.h
+ * @class GloooConfig
  *
  * @brief Class for a reading configs from YAML
  *        and holding them.
@@ -16,7 +15,7 @@
  *
  * @date   2017-11-02
  *
- */
+ **/
 
 #ifndef GLOOOCONFIG_H
 #define GLOOOCONFIG_H
@@ -58,6 +57,8 @@ private:
     string assignmentFile;
 
     string barkFile;
+    
+    string midiFile;
 
     string attack_mode;
 
@@ -93,16 +94,15 @@ public:
 
     string SMS_path();
 
-
     string yaml_path();
 
     string assignment_file();
 
     string bark_file();
 
+    string midi_file();
 
     string ATT_mode();
-
 
     string REL_mode();
 
@@ -127,15 +127,6 @@ public:
 
 
     string partOutPath();
-    
-    // Should be private and accessed by getter method
-
-    int masterVol_CC;
-
-    int tonalVol_CC;
-
-    int noiseVol_CC;   
-
 
 };
 

@@ -3,8 +3,14 @@
 MidiManager::MidiManager(int p, glooo_parameters *gp, GloooConfig *gc)
 {
     gloooParam  = gp;
-
     gloooConf   = gc;
+
+    std::cout << "Reading midi assignments from: " << gc->midi_file() << std::endl;
+
+    YAML::Node midi_file = YAML::LoadFile(gc->midi_file());
+    masterVolCC = (int) midi_file["Master_Volume"].as<int>();
+    tonalVolCC  = (int) midi_file["Tonal_Volume"].as<int>();
+    noiseVolCC  = (int) midi_file["Noise_Volume"].as<int>(); 
 
     #if 0 // Choose midi device via user input    
     char choice = 'N';
@@ -155,15 +161,15 @@ void MidiManager::callback(double deltatime, std::vector<unsigned char> *message
         //static_cast<MidiManager*>(userData)->gloooParam->active_note = message->at(1);
         break;
     case 176: // Control Change event 
-        if ((int) message->at(1) == static_cast<MidiManager*>(userData)->gloooConf->masterVol_CC) // Master volume on CC48
+        if ((int) message->at(1) == static_cast<MidiManager*>(userData)->masterVolCC) 
         {
             static_cast<MidiManager*>(userData)->gloooParam->master_vol = (double) message->at(2) * 0.02362;
         } 
-        else if ((int) message->at(1) == static_cast<MidiManager*>(userData)->gloooConf->tonalVol_CC) // Tonal volume on CC49
+        else if ((int) message->at(1) == static_cast<MidiManager*>(userData)->tonalVolCC) 
         {
             static_cast<MidiManager*>(userData)->gloooParam->tonal_vol = (double) message->at(2) * 0.02362;
         }
-        else if ((int) message->at(1) == static_cast<MidiManager*>(userData)->gloooConf->noiseVol_CC) // Noise volume on CC50
+        else if ((int) message->at(1) == static_cast<MidiManager*>(userData)->noiseVolCC) 
         {
             static_cast<MidiManager*>(userData)->gloooParam->noise_vol = (double) message->at(2) * 0.02362;
         } else

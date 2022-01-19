@@ -56,6 +56,10 @@ private:
     bool isVerbose = true;
 
     vector<note_event_t> note_events;
+    
+    int masterVolCC;
+    int tonalVolCC;
+    int noiseVolCC;
 
 public:
 
