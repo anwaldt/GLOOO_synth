@@ -21,8 +21,8 @@ for the use with GLOOO_synth.
 **Analysis & Modeling**
 
 The GLOOO_synt uses a statistical data set for
-sound generation. A violin model is included in
-the synth repository. It has been created using
+sound generation. A [violin model](https://hvc.berlin/download/glooo/)  needs to be downloaded in
+addition to the synth repository. It has been created using
 the [TU-Note Violin Sample Library](https://depositonce.tu-berlin.de/handle/11303/7527).
 
 Using the Matlab based analysis tool [GLOOO_analysis](https://gitlab.tubit.tu-berlin.de/henrikvoncoler/GLOOO_analysis), new models can be generated.
@@ -51,7 +51,7 @@ $ sudo apt-get install libboost-dev
 $ sudo apt-get install liblo-dev
 ```
 
- 
+
 
 **Make sure cmake is installed:**
 
@@ -62,9 +62,8 @@ $ sudo apt-get install liblo-dev
 **In the root directory of the repository run:**
 
 ```shell
-$ mkdir build
 $ cd build
-$ cmake ../.
+$ cmake
 $ make
 ```
 
@@ -72,6 +71,9 @@ $ make
 
     $ sudo make install
 
+### Get the Instrument Model
+
+Download and unpack the [violin model](https://hvc.berlin/download/glooo/).
 
 ### Run
 
